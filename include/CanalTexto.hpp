@@ -1,11 +1,15 @@
-
+#ifndef CANALTEXTO_HPP
+#define CANALTEXTO_HPP 
+using namespace std;
 
 
 
 class CanalTexto{
-private:
+	private:
 
-	std::string nome;
-	std::vector<Mensagem> mensagem;
+		std::string nome;
+		std::vector<Mensagem> mensagem;
 
 };
+
+#endif

@@ -1,10 +1,12 @@
-#ifndef 
-#define  value
+#ifndef USUARIO_HPP
+#define USUARIO_HPP
+using namespace std;
 
 class Usuario{
-private:
-	int id;
-	std::string nome, email, senha;
+
+	private:
+		int id;
+		std::string nome, email, senha;
 
 };
 
