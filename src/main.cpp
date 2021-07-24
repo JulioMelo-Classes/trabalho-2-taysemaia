@@ -1,23 +1,23 @@
 #include <iostream>
+#include <cstring>
 using namespace std;
+#include "../include/Usuario.hpp"
+#include "../include/Mensagem.hpp"
+#include "../include/Servidor.hpp"
+#include "../include/CanalTexto.hpp"
+#include "../include/Sistema.hpp"
+#include <vector>
+#include <map>
 
 
 void mostrarComandos(){
-	cout << "-------------------------------------------- * * * -------------------------------------------------" << endl;
-	cout << "                               Os comandos disponíveis são:" << endl;
-	cout << "-------------------------------------------- * * * -------------------------------------------------" << endl;
+	cout << "------------------------------------------------------ * * * -----------------------------------------------------------" << endl;
+	cout << "                                          Os comandos disponíveis são:" << endl;
+	cout << "------------------------------------------------------ * * * -----------------------------------------------------------" << endl;
 
 	cout << "1 - quit" << endl; 
 	cout << "2 - login" << endl;
 	cout << "3 - create-user" << endl; 
-	cout << "4 - disconnect" << endl;
-	cout << "5 - create-server" << endl;
-	cout << "6 - set-server-invite-code" << endl;
-	cout << "7 - list-servers" << endl;
-	cout << "8 - remove-server" << endl;
-	cout << "9 - enter-server" << endl;
-	cout << "10 - leave-server" << endl;
-	cout << "11 - list-participants" << endl;
 
 
 }
@@ -27,32 +27,57 @@ void mostrarComandos(){
 
 int main(int argc, char const *argv[]){
 	int option;
-	std::string comando;
+	std::string comando, nome, email, senha;
+	Sistema sistema;
+	Mensagem mensagem;
+	Usuario usuario;
+	CanalTexto canaltexto;
+	Servidor servidor;
 
 
-	cout << "-------------------------------------------- * * * -------------------------------------------------" << endl;
-	cout << "Bem vindo(a) ao Concord, digite o comando desejado, ou \"list\"  pra conhecer os comandos disponíveis." << endl;
-	cout << "-------------------------------------------- * * * -------------------------------------------------" << endl << endl;
- 
+	cout << "------------------------------------------------------ * * * -----------------------------------------------------------" << endl;
+	cout << "Bem vindo(a) ao Concord, digite o comando desejado, ou \"list\" a qualquer momento para conhecer os comandos disponíveis." << endl;
+	cout << "------------------------------------------------------ * * * -----------------------------------------------------------" << endl;
+
 	while(1){
 
+		cout << " >>>> ";
 		std::cin >> comando;
 
 		if(comando == "list"){
 			mostrarComandos();
 		}
+
 		else if(comando == "quit"){
 			cout << "Saindo do Concord ..." << endl;
 			return 1;
 		}
 
+		else if(comando == "login"){
+
+			cin >> email;
+			cin >> senha;
+			cin.ignore(); 
+			getline(cin, nome);
+			cout << nome << endl; 
+			cout << email << endl;
+			cout << senha << endl;
+			//buscaEMail();
+			cout << "dados pegos" << endl;
+
+	
+		}
 
 
+		else if(comando == "create-user"){
+			
 
-
-
-
-
+			//validaEMail();
+			
+		}
+		else{
+			cout << "Desculpe, comando inválido, tente novamente. " << endl; 
+		}
 
 
 
@@ -60,48 +85,6 @@ int main(int argc, char const *argv[]){
 
 
 	}
-
-	/*cout << "Bem vindo ao discordo, escolha a opção desejada: " << endl;
-	cout << "1- Fazer login." << endl;
-	cout << "2- Cadastrar-se" << endl;
-	cout << "3- Sair" << endl;
-
-	cin >> option;
-
-	switch(option){
-		case 1:	
-			cout << "Digite: \"login seu@email suasenha\"" << endl;
-			break;
-		case 2:	
-			cout << "Digite: \"create-user seu@email suasenha Seu Nome\"" << endl;
-			break;
-		case 3: 
-			return 1;
-		default: 
-			cout << "Opção Inválida" << endl;
-	}*/ 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

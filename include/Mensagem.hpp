@@ -6,9 +6,22 @@ using namespace std;
 class Mensagem{
 
 	private:
+
 		std::string dataHora, conteudo;
 		int enviadaPor;
 		
-};
+
+	public:
+
+		string getDataHora() const;
+		void setDataHora(string dataHora_);
+
+		string getConteudo() const;
+		void setConteudo(string conteudo_);
+
+		int getEnviadaPor() const;
+		void setEnviadaPor(int enviadaPor_);
+
+};	
 
 #endif

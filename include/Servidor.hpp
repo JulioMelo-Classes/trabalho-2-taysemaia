@@ -1,6 +1,8 @@
 #ifndef SERVIDOR_HPP
 #define SERVIDOR_HPP
 using namespace std;
+#include <vector>
+#include "CanalTexto.hpp"
 
 class Servidor
 {
