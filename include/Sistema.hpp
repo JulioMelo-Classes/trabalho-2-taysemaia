@@ -5,6 +5,11 @@ using namespace std;
 #include <map>
 #include "Servidor.hpp"
 #include "Usuario.hpp"
+#include <string>
+
+
+
+
 
 class Sistema{
 
@@ -14,8 +19,9 @@ class Sistema{
 		std::map<int, pair <string, string>> usuariosLogados;
 
 	public:
+	bool buscaEmail(Usuario user);
 
-	void setUsuarios(vector<Usuario> usuarios_);
+	void setUsuarios(Usuario usuario);
 
 	vector<Usuario> getUsuarios() const;
 
@@ -26,6 +32,8 @@ class Sistema{
 	void setUsuariosLogados(std::map<int, pair <string, string>> usuariosLogados_);
 
 	std::map<int, pair <string, string>> getUsuariosLogados()const;	
+
+	bool buscaEmail(std::vector<Usuario> usuarios);
 
 };
 

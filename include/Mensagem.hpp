@@ -1,6 +1,7 @@
 #ifndef MENSAGEM_HPP
 #define MENSAGEM_HPP
 using namespace std;
+#include <string>
 
 
 class Mensagem{

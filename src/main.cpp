@@ -8,6 +8,8 @@ using namespace std;
 #include "../include/Sistema.hpp"
 #include <vector>
 #include <map>
+#include <string>
+
 
 
 void mostrarComandos(){
@@ -26,13 +28,10 @@ void mostrarComandos(){
 
 
 int main(int argc, char const *argv[]){
-	int option;
 	std::string comando, nome, email, senha;
 	Sistema sistema;
-	Mensagem mensagem;
-	Usuario usuario;
-	CanalTexto canaltexto;
-	Servidor servidor;
+	Usuario user;
+
 
 
 	cout << "------------------------------------------------------ * * * -----------------------------------------------------------" << endl;
@@ -57,32 +56,48 @@ int main(int argc, char const *argv[]){
 
 			cin >> email;
 			cin >> senha;
-			cin.ignore(); 
-			getline(cin, nome);
+	
 			cout << nome << endl; 
 			cout << email << endl;
 			cout << senha << endl;
 			//buscaEMail();
-			cout << "dados pegos" << endl;
+		
 
 	
 		}
 
 
 		else if(comando == "create-user"){
-			
 
-			//validaEMail();
-			
+			Usuario user;
+
+			cin >> email;
+			user.setEmail(email);
+
+			cin >> senha;
+			user.setSenha(senha);
+
+			cin.ignore(); 
+			getline(cin, nome);
+			user.setNome(nome);
+
+			sistema.setUsuarios(user);
+
+			if(sistema.buscaEmail(user) == true){
+
+				cout << "Usuário criado com sucesso" << endl;
+				
+			}
+			else{
+				cout << "Usuário já existe" << endl;
+			} 
+
 		}
+
+
 		else{
 			cout << "Desculpe, comando inválido, tente novamente. " << endl; 
 		}
-
-
-
-
-
 
 	}
 

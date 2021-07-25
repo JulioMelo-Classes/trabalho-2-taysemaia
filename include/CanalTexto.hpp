@@ -3,6 +3,8 @@
 using namespace std;
 #include <vector>
 #include "Mensagem.hpp"
+#include <string>
+
 
 
 

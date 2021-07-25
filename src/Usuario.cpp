@@ -5,6 +5,7 @@ using namespace std;
 #include <vector>
 #include <algorithm>
 #include <bits/stdc++.h>
+#include <string>
 
 int Usuario::getID() const{
 	return id;
@@ -15,23 +16,23 @@ void Usuario::setID(int id_){
 
 }
 
-string Usuario::getNome() const{
+std::string Usuario::getNome() const{
 	return nome;
 }
 void Usuario::setNome(string nome_){
 	nome = nome_;
 }
 
-string Usuario::getEmail() const{
+std::string Usuario::getEmail() const{
 	return email;
 }
-void Usuario::setEmail(string email_){
+void Usuario::setEmail(std::string email_){
 	email = email_;
 }
 
-string Usuario::getSenha() const{
+std::string Usuario::getSenha() const{
 	return senha;
 }
-void Usuario::setSenha(string senha_){
+void Usuario::setSenha(std::string senha_){
 	senha = senha_;
 }

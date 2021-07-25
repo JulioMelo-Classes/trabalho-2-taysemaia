@@ -1,6 +1,7 @@
 #ifndef USUARIO_HPP
 #define USUARIO_HPP
 using namespace std;
+#include <string>
 
 class Usuario{
 
@@ -14,14 +15,14 @@ class Usuario{
 		int getID() const;
 		void setID(int id_);
 
-		string getNome() const;
-		void setNome(string nome_);
+		std::string getNome() const;
+		void setNome(std::string nome_);
 
-		string getEmail() const;
-		void setEmail(string email_);
+		std::string getEmail() const;
+		void setEmail(std::string email_);
 
-		string getSenha() const;
-		void setSenha(string senha_);
+		std::string getSenha() const;
+		void setSenha(std::string senha_);
 
 
 
