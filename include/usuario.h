@@ -2,6 +2,10 @@
 #define USUARIO_H
 #include <string>
 
+/*
+CP 1 classe usuário ok
+Provavelmente ficaria melhor se houvesse um construtor
+*/
 class Usuario{
 
 	private:

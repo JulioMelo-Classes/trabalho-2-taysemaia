@@ -109,6 +109,10 @@ string Sistema::quit()
 				@param nome o nome do usuário (com espaços) passado ao comando create user 
 				@return uma string contendo uma mensagem de erro ou "Usuário Criado"
 		*/
+
+/*
+A1.2 ok
+*/
 string Sistema::create_user(const string email, const string senha, const string nome)
 {
 
@@ -139,6 +143,10 @@ string Sistema::create_user(const string email, const string senha, const string
 				@param senha a senha correspondente àquele usuário
 				@return uma string contendo uma mensagem de erro ou "Logado como <email>!"
 		*/
+
+/*
+A1.3 ok
+*/
 string Sistema::login(const string email, const string senha)
 {
   if (buscaSenhaEmail(senha, email))
@@ -157,6 +165,9 @@ string Sistema::login(const string email, const string senha)
 				@param id um id válido de um usuário logado no sistema.
 				@return "Usuário <email> desconectado!" ou uma mensagem de erro em caso de falha.
 		*/
+  /*
+  A2.1 ok
+  */
 string Sistema::disconnect(int id)
 {
 
@@ -177,6 +188,11 @@ string Sistema::disconnect(int id)
 				@return "Servidor <nome> criado" quando o servidor for criado ou uma mensagem de erro em
 								caso de falha.
 		*/
+
+/*
+A2.2 0,7
+Faltou testar se o usuário está logado
+*/
 string Sistema::create_server(int id, const string nome)
 {
   if (buscaNomeServidor(nome))
@@ -200,6 +216,10 @@ string Sistema::create_server(int id, const string nome)
 				@param descricao nova descrição desejada.
 				@return "Descrição do servidor <nome> modificada!" ou uma mensagem de erro em caso de falha.
 		*/
+/*
+A2.3 70%
+faltou testar se o usuário estava logado
+*/
 string Sistema::set_server_desc(int id, const string nome, const string descricao)
 {
 
@@ -226,6 +246,11 @@ string Sistema::set_server_desc(int id, const string nome, const string descrica
 				@return "Código de convite modificado com sucesso" ou uma mensagem de erro em caso de
 								falha.
 		*/ 
+
+  /*
+  A2.4 70%
+  Faltou testar se está logado
+  */
 string Sistema::set_server_invite_code(int id, const string nome, const string codigo)
 {
 
@@ -246,6 +271,9 @@ string Sistema::set_server_invite_code(int id, const string nome, const string c
 				@param id um id válido de algum usuário cadastrado e logado no sistema.
 				@return uma string vazia ou a string de erro "Usuário não está logado".
 		*/
+/*
+A2.5 ok
+*/
 string Sistema::list_servers(int id)
 {
 
@@ -263,9 +291,25 @@ string Sistema::list_servers(int id)
 				@param nome um nome válido de um servidor cadastrado no sistema.
 				@return "Servidor <nome> removido com sucesso" ou uma mensagem de erro em caso de falha.
 		*/
+
+/*
+A2.6 incompleto
+Nesse caso, como conversamos vcs podem usar erase, só que usando iteratores
+*/
 string Sistema::remove_server(int id, const string nome)
 {
+  /*por exemplo*/
+  for (auto itr = servidores.begin(); itr != servidores.end(); itr++)
+  {
+    if (itr->getNomeServer() == nome && itr->getUserID() == id)
+    {
+      cout<<"Apagando serdor "<<itr->getNomeServer()<<endl;
+      servidores.erase(itr);
+      break;
+    }
+  }
 
+  /*esse for abaixo itera nos valores do veteor, ele não usa iterators, logo vcs não podem usar erase com itr*/
   for (auto &itr : servidores)
   {
     if (itr.getNomeServer() == nome && itr.getUserID() == id)

@@ -4,6 +4,10 @@
 #include <string>
 #include <vector>
 
+/*
+CP 1 classe servidor ok
+Provavelmente ficaria melhor se houvesse um construtor
+*/
 class Servidor
 {
 	private: 
