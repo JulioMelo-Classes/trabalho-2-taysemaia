@@ -15,3 +15,7 @@ std::string CanalTexto::getNomeCanal(){
 void CanalTexto::setNomeCanal(std::string nome){
 	this->nome = nome;
 }
+
+void CanalTexto::adicionaMensagem(Mensagem mensagem_){
+	mensagem.push_back(mensagem_);
+}
