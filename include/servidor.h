@@ -12,16 +12,20 @@ Provavelmente ficaria melhor se houvesse um construtor
 class Servidor
 {
 	private: 
+		
 		int usuarioDonoID; //<! id do usuario 
 		std::string nome, codigoConvite, descricao; //<! nome do servidor, codigo de convite e descrição 
 		std::vector<CanalTexto> canaisTexto; //<! vetor de canais de texto 
 		std::vector<int> participantesIDs; //<! vetor com id dos participantes
 		
 	public:
+		bool canalExistente(std::string nome);
+		void mostrarLista();
 		void listarCanais();
 		bool usuarioParticipante(int id);
 		void removeParticipante(int id);
 		void adicionaID(int id);
+		void adicionaCanal(CanalTexto canal);
 		/*! Retorna o ID do usuario
 					@return retorna um int com id
 			*/

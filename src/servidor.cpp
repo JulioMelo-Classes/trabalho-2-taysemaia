@@ -8,6 +8,22 @@ using namespace std;
 #include <string>
 
 
+bool Servidor::canalExistente(std::string nome){
+	for(auto &elem : canaisTexto){
+    	if(elem.getNomeCanal() == nome){
+    		return true;
+    	}
+  	}
+  	return false;
+}
+
+void Servidor::mostrarLista(){
+
+	for(auto itr = participantesIDs.begin(); itr != participantesIDs.end(); itr++){
+	    cout << "oi?" << endl;
+  	}
+  	
+}
 
 void Servidor::listarCanais(){
 	for(auto &elem : canaisTexto){
@@ -29,14 +45,20 @@ void Servidor::removeParticipante(int id){
 	for(auto itr = participantesIDs.begin(); itr != participantesIDs.end(); itr++){
 	    if(*itr == id){
 	      participantesIDs.erase(itr);
+	      break;
 	    }
   	}
+}
+void Servidor::adicionaCanal(CanalTexto canal){
+	canaisTexto.push_back(canal);
 }
 
 void Servidor::adicionaID(int id){
 	participantesIDs.push_back(id);
+	for(auto itr = participantesIDs.begin(); itr != participantesIDs.end(); itr++){
+	    cout << *itr << " ";
+  	}
 }
-
 	/*! Retorna o ID do usuario
 				@return retorna um int com id
 		*/

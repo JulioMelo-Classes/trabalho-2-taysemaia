@@ -161,7 +161,6 @@ string Sistema::create_server(int id, const string nome)
   servidor.setUserID(id);
   servidor.setNomeServer(nome);
   servidores.push_back(servidor);
-
   return "Servidor criado!";
 }
 
@@ -235,30 +234,47 @@ string Sistema::remove_server(int id, const string nome)
 
   return "Você não pode apagar este servidor";
 }
-// -------------------------------------------*************** ----------------------------------------
+
 
 string Sistema::enter_server(int id, const string nome, const string codigo){
 
   if (!UsuarioLogado(id)){
-    return "Usuário não está logado";
+    return "Usuário não está logado"; 
   }
 
   if(!buscaNomeServidor(nome)){
     return "Servidor não existente";
   }
 
+  //procurar se ele já é participante
+
   for(auto &elem : servidores){ 
 
     if(elem.getNomeServer() == nome && elem.getUserID() == id){ // se o usuario for dono do servidor
-      std::pair<std::string, std::string> pair2(nome, "");
-      usuariosLogados.at(id) = (pair2);
+      
+      if (elem.usuarioParticipante(id)){ // SE O DONO JA ESTIVER NA LISTA DE IDS
+
+        usuariosLogados.at(id).first = nome;
+        return "Entrou no servidor com sucesso!";
+
+      }
+      //SE NAO ESTIVER NA LISTA DE IDS
+      elem.mostrarLista();
       elem.adicionaID(id);
+      usuariosLogados.at(id).first = nome;  
       return "Entrou no servidor com sucesso!";
     }
-
+    // SE NAO FOR O DONO DO SERVIDOR E TIVER TUDO CERTO
     else if(elem.getNomeServer() == nome && elem.getInviteCode() == codigo){  // se o codigo for vazio ou tiver um codigo certo
-      usuariosLogados.at(id).first = nome; // adiciona a tabela de usuarios logados o noem do servidor sendo visualizado
+      
+      usuariosLogados.at(id).first = nome; // adiciona a tabela de usuarios logados o nome do servidor sendo visualizado
+      
+      if(elem.usuarioParticipante(id)){ // se ele ja participa nao precisa adicionar ID ao vetor
+        return "Entrou no servidor com sucesso!";
+      }
+
       elem.adicionaID(id);
+
       return "Entrou no servidor com sucesso!";
     }
   }
@@ -278,22 +294,18 @@ string Sistema::leave_server(int id, const string nome){
     if(elem.getNomeServer() == nome){
 
       if (!elem.usuarioParticipante(id)){
-        return "Usuário não participa deste servidor!";
+        return "Usuário não participa deste servidor!"; 
       }
-      usuariosLogados.at(id).first = "";
-      elem.removeParticipante(id);
-      return "Saindo do servidor " + nome + "!";
+      usuariosLogados.at(id).first = ""; 
+      elem.removeParticipante(id); 
+      return "Saindo do servidor!";
     } 
   }
 
   return "Servidor Inexistente!"; 
 }
 
-/*! Lista os participantes presentes no servidor que o usuário com o id passado está visualizando.
-				Retorna uma string vazia em caso de sucesso ou uma mensagem de erro em caso de falha.
-				@param id um id válido de algum usuário cadastrado e logado no sistema.
-				@return Uma string vazia em caso de sucesso ou uma mensagem de erro em caso de falha.
-		*/
+
 string Sistema::list_participants(int id){
 
   if(!UsuarioLogado(id)){
@@ -301,28 +313,34 @@ string Sistema::list_participants(int id){
   }
 
   std::string servidor_ = usuariosLogados.at(id).first;
+
   if(servidor_ == ""){
 
     return "O usuário não está visualizando nenhum servidor!";
   }
 
   for(auto &elem : servidores){
-    if(elem.getNomeServer() == servidor_){
-    
+    if(elem.getNomeServer() == servidor_){ // se o nome do servidor sendo visualizado é o servidor elem
+      cout << "#Lista de Participantes: " << endl;
+
+      for(auto &i : usuarios){ // percorrendo o vetor de usuarios
+
+        if(!elem.usuarioParticipante(i.getID())){
+
+          return "Este usuário não está no servidor!";
+        } // a cada usuario do vetor, ver se ele participa do servidor
+      
+        cout <<  i.getNome() << endl;
+      }
 
     } 
   }
 
-  return "incompleto";
+  return "-------------------------";
 }
 
-/*!	Lista os canais do servidor que o usuário com o id passado está vizualizando. Retorna uma
-				string vazia em caso de sucesso o uma mensagem de erro no caso de falha.
-				@param id um id válido de algum usuário cadastrado e logado no sistema.
-				@return uma string vazia em caso de sucesso ou uma mensagem de erro em caso de falha.
-		*/
-string Sistema::list_channels(int id)
-{
+
+string Sistema::list_channels(int id) {
   if (!UsuarioLogado(id)){
     return "O usuário não está logado!";
   }
@@ -333,7 +351,7 @@ string Sistema::list_channels(int id)
 
     return "O usuário não está visualizando nenhum servidor!";
   }
-  cout << "#Canais de texto: " << endl;
+  cout << "#Canais de texto do servidor "<< servidor_ << endl;
   for(auto &elem : servidores){
     if(elem.getNomeServer() == servidor_){
       elem.listarCanais(); //listar canais do servidor elem
@@ -343,43 +361,79 @@ string Sistema::list_channels(int id)
   return "";
 }
 
-/*! Cria um canal em um servidor com o nome passado. O canal criado é do tipo dado (voz ou texto)
-				de acordo com o comando create-channel. Retorna uma mensa
-				@param id um id válido de algum usuário cadastrado e logado no sistema. 
-				@param o nome do novo canal, de acordo com o comando create-channel
-				@return "Canal <nome> criado!" ou uma mensagem de erro em caso de falha.
-		*/
-string Sistema::create_channel(int id, const string nome)
-{
-  return "create_channel NÃO IMPLEMENTADO";
+
+string Sistema::create_channel(int id, const string nome){
+
+  if(!UsuarioLogado(id)){
+    return "O usuário não está logado";
+  }
+
+  std::string servidor_ = usuariosLogados.at(id).first;
+
+  if(servidor_ == ""){
+    return "O usuário não está visualizando nenhum servidor";
+  }
+
+  for(auto &elem : servidores){
+    if(elem.getNomeServer() == servidor_){
+      if(elem.canalExistente(nome)){
+        return "Canal já existe!";
+      }
+      CanalTexto canal;
+      canal.setNomeCanal(nome);
+      elem.adicionaCanal(canal);
+      return "Canal " + nome + " adicionado";
+    }
+  }
+
+  return "";
 }
 
-/*! Faz com que o usuário com id dado entre em um canal específico(com seu nome e tipo) ao entrar
-				em um canal o sistema deve atualizar a tabela Sistema::usuariosLogados com a informação de
-				que o usuário está vizualizando o canal em que entrou. Retorna uma mensagem de sucesso ou de
-				erro em caso de falha.
-				@param id um id válido de algum usuário cadastrado e logado no sistema.
-				@param o nome do canal que deseja entrar,
-				@return "Usuário <email.do.usuario> entrou no canal <nome>" ou uma mensagem de
-								erro em caso de falha.
-		*/
-string Sistema::enter_channel(int id, const string nome)
-{
-  return "enter_channel NÃO IMPLEMENTADO";
+
+string Sistema::enter_channel(int id, const string nome){
+
+  if(!UsuarioLogado(id)){
+    return "O usuário não está logado";
+  }
+
+  std::string servidor_ = usuariosLogados.at(id).first;
+  std::string canal_ = usuariosLogados.at(id).second;
+
+  if(servidor_ == ""){
+    return "O usuário não está visualizando nenhum servidor";
+  }
+
+  for(auto &elem : servidores){
+    if(elem.getNomeServer() == servidor_){
+
+      if(!elem.canalExistente(nome)){
+        return "Este canal não existe!";
+      }
+
+      usuariosLogados.at(id).second = canal_;
+      return "Entrou no canal " + canal_;
+    }
+  }
+  return "";
 }
 
-/*! Faz com que o usuário com id dado saia do canal que está visualizando atualmente. 
-				Ao sair de um canal o sistema deve atualizar o attributo Sistema::usuariosLogados de 
-				forma que o usuário não esteja mais vizualizando qualquer canal. A função deve retornar 
-				mensagem de sucesso ou de erro em caso de falha
-				@param id um id válido de algum usuário cadastrado e logado no sistema.
-							 que o usuário está visualizando, de acordo com o atributo Sistema::usuariosLogados.
-				@return "Usuário <email.do.usuario> saiu no canal <nome>" ou uma mensagem de erro em caso de
-								falha.
-		*/
+
 string Sistema::leave_channel(int id)
 {
-  return "leave_channel NÃO IMPLEMENTADO";
+  if(!UsuarioLogado(id)){
+    return "Usuário não está logado!";
+  }
+
+  std::string nomeCanal = usuariosLogados.at(id).second;
+
+  if(nomeCanal == ""){
+    return "O usuário não está em nenhum Canal de texto!";
+  }
+
+  usuariosLogados.at(id).second = ""; 
+
+  return "Saindo do canal...";
+  
 }
 
 /*! Envia uma mensagem no canal em que o usuáiro com id passado está visualizando.

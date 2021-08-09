@@ -11,3 +11,7 @@ using namespace std;
 std::string CanalTexto::getNomeCanal(){
 	return nome;
 }
+
+void CanalTexto::setNomeCanal(std::string nome){
+	this->nome = nome;
+}
