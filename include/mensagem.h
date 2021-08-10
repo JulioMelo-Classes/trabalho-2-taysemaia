@@ -6,10 +6,12 @@ using namespace std;
 
 class Mensagem{
 	private:
-		std::string dataHora;
-		int enviadaPor;
-		std::string conteudo;
-
+		std::string dataHora; //<! data e hora da mensagem
+		int enviadaPor; //<! id de quem foi enviada a mensagem
+		std::string conteudo; //<! conteudo da mensagem
+	public:
+		
+		
 };
 
 #endif

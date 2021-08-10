@@ -5,10 +5,6 @@
 #include <vector>
 
 
-/*
-CP 1 classe servidor ok
-Provavelmente ficaria melhor se houvesse um construtor
-*/
 class Servidor
 {
 	private: 
@@ -19,13 +15,38 @@ class Servidor
 		std::vector<int> participantesIDs; //<! vetor com id dos participantes
 		
 	public:
+		/*! Busca se o nome do canal passado como parametro existe
+			@param nome o nome a ser buscado
+			@return true se for achado, false se não
+		*/
 		bool canalExistente(std::string nome);
-		void mostrarLista();
+
+		/*! listar os nomes dos canais naquele servidor
+		 * 
+		*/
 		void listarCanais();
+
+		/*! Busca se o usuário participa deste servidor
+			@param id id do usuário a ser buscado
+			@return true se for participante, false se não
+		*/
 		bool usuarioParticipante(int id);
+
+		/*! Remove o ID do usuário da lista de participantes do server
+			@param id com o ID a ser removido
+		*/
 		void removeParticipante(int id);
+
+		/*! adiciona usuario com o ID a lista de participantes do servidor
+			@param id com o id a ser adicionado
+		*/
 		void adicionaID(int id);
+
+		/*! Adiciona um objeto canal ao vetor de canais de texto
+			@param canal com o canal a ser adicionado
+		*/
 		void adicionaCanal(CanalTexto canal);
+
 		/*! Retorna o ID do usuario
 					@return retorna um int com id
 			*/

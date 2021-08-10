@@ -14,11 +14,6 @@ std::string canalVisualizado = "";
 std::pair<std::string, std::string> pair1(servidorVisualizado, canalVisualizado);
 std::pair<std::string, std::string> pair2(servidorVisualizado, canalVisualizado);
 
-/* COMANDOS */
-/*! Responsavel por procurar se o usuario do ID está logado
-				@param id o id do usuario informado
-				@return true, se tiver logado, false se não estiver
-		*/
 
 std::vector<Usuario> Sistema::getUsuarios() const{
 
@@ -259,7 +254,6 @@ string Sistema::enter_server(int id, const string nome, const string codigo){
 
       }
       //SE NAO ESTIVER NA LISTA DE IDS
-      elem.mostrarLista();
       elem.adicionaID(id);
       usuariosLogados.at(id).first = nome;  
       return "Entrou no servidor com sucesso!";
@@ -397,7 +391,6 @@ string Sistema::enter_channel(int id, const string nome){
   }
 
   std::string servidor_ = usuariosLogados.at(id).first;
-  std::string canal_ = usuariosLogados.at(id).second;
 
   if(servidor_ == ""){
     return "O usuário não está visualizando nenhum servidor";
@@ -410,8 +403,8 @@ string Sistema::enter_channel(int id, const string nome){
         return "Este canal não existe!";
       }
 
-      usuariosLogados.at(id).second = canal_;
-      return "Entrou no canal " + canal_;
+      usuariosLogados.at(id).second = nome;
+      return "Entrou no canal " + nome;
     }
   }
   return "";
@@ -436,14 +429,33 @@ string Sistema::leave_channel(int id)
   
 }
 
-/*! Envia uma mensagem no canal em que o usuáiro com id passado está visualizando.
-				@param id um id válido de algum usuário cadastrado e logado no sistema.
-				@param mensagem a mensagem que deve ser enviada.
-				@return uma string vazia em caso de sucesso ou uma mensagem de erro em caso de falha.
-		*/
-string Sistema::send_message(int id, const string mensagem)
-{
-  return "send_message NÃO IMPLEMENTADO";
+
+string Sistema::send_message(int id, const string mensagem){
+
+  if(!UsuarioLogado(id)){
+    return "Usuário não está logado!";
+  }
+
+  std::string nomeCanal = usuariosLogados.at(id).second;
+
+  if(nomeCanal == ""){
+    return "O usuário não está em nenhum Canal de texto e você não pode enviar mensagens!";
+  }
+
+  /*std::string servidor_ = usuariosLogados.at(id).first;
+
+
+  for(auto &elem : servidores){
+    
+  }
+
+  Mensagem msg;
+  msg.setEnviadaPor(id);
+  msg.setConteudo(mensagem);
+  //como adicionar no vetor de mensagens que é de canal de texto?
+  */
+
+  return "";
 }
 
 /*! Lista as mensagem no canal que o usuário com id passado está visualizando.
@@ -452,7 +464,7 @@ string Sistema::send_message(int id, const string mensagem)
 		*/
 string Sistema::list_messages(int id)
 {
-  return "list_messages NÃO IMPLEMENTADO";
+  
+  return "";
 }
 
-/* IMPLEMENTAR MÉTODOS PARA OS COMANDOS RESTANTES */
