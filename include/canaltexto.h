@@ -3,6 +3,9 @@
 #include <string>
 #include "mensagem.h"
 
+/*
+cp2 ok
+*/
 class CanalTexto{
 	private:
 		std::string nome; //<! nome do canal de texto

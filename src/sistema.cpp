@@ -230,7 +230,9 @@ string Sistema::remove_server(int id, const string nome)
   return "Você não pode apagar este servidor";
 }
 
-
+/*
+A2.7 ok
+*/
 string Sistema::enter_server(int id, const string nome, const string codigo){
 
   if (!UsuarioLogado(id)){
@@ -277,7 +279,9 @@ string Sistema::enter_server(int id, const string nome, const string codigo){
 
 }
 
-
+/*
+A2.8 ok
+*/
 string Sistema::leave_server(int id, const string nome){
 
   if(!UsuarioLogado(id)){
@@ -299,7 +303,10 @@ string Sistema::leave_server(int id, const string nome){
   return "Servidor Inexistente!"; 
 }
 
-
+/*
+A2.9 0,6
+- vide explicação abaixo
+*/
 string Sistema::list_participants(int id){
 
   if(!UsuarioLogado(id)){
@@ -319,11 +326,13 @@ string Sistema::list_participants(int id){
 
       for(auto &i : usuarios){ // percorrendo o vetor de usuarios
 
-        if(!elem.usuarioParticipante(i.getID())){
-
-          return "Este usuário não está no servidor!";
+        //não entendi essa parte. quando vcs fazem isso o método retorna e nunca imprime todos os participantes
+        //se ocorrer de ao menos um participante do sistema não estiver no canal! vou considerar 60% uma vez que foi falta de teste
+        if(!elem.usuarioParticipante(i.getID())){ 
+          continue; //ajustei para poder testar
+          //return "Este usuário não está no servidor!";
         } // a cada usuario do vetor, ver se ele participa do servidor
-      
+
         cout <<  i.getNome() << endl;
       }
 
@@ -333,7 +342,9 @@ string Sistema::list_participants(int id){
   return "-------------------------";
 }
 
-
+/*
+B1.1 ok
+*/
 string Sistema::list_channels(int id) {
   if (!UsuarioLogado(id)){
     return "O usuário não está logado!";
@@ -355,7 +366,9 @@ string Sistema::list_channels(int id) {
   return "";
 }
 
-
+/*
+B1.2 ok
+*/
 string Sistema::create_channel(int id, const string nome){
 
   if(!UsuarioLogado(id)){
@@ -383,7 +396,9 @@ string Sistema::create_channel(int id, const string nome){
   return "";
 }
 
-
+/*
+B1.3 ok
+*/
 string Sistema::enter_channel(int id, const string nome){
 
   if(!UsuarioLogado(id)){
@@ -410,7 +425,9 @@ string Sistema::enter_channel(int id, const string nome){
   return "";
 }
 
-
+/*
+B1.4 ok
+*/
 string Sistema::leave_channel(int id)
 {
   if(!UsuarioLogado(id)){
@@ -429,7 +446,9 @@ string Sistema::leave_channel(int id)
   
 }
 
-
+/*
+B2.1 e B2.2 incompletos
+*/
 string Sistema::send_message(int id, const string mensagem){
 
   if(!UsuarioLogado(id)){

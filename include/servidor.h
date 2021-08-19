@@ -4,7 +4,9 @@
 #include <string>
 #include <vector>
 
-
+/*
+cp2 ok
+*/
 class Servidor
 {
 	private: 
